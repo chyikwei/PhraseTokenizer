@@ -1,2 +1,2 @@
-# PhraseTokenizer
-a python tool for phrase extraction and tokenize
+# Phrase Tokenizer
+A python tool for phrase extraction and tokenization.
