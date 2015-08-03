@@ -5,6 +5,7 @@ from scipy.sparse import csr_matrix
 from nltk.tokenize import sent_tokenize
 from nltk import word_tokenize
 from .storage import DictTokenStats
+from .utils import aggragate_by_cnt, get_entropy
 
 
 class TokenzierMixin(object):
@@ -51,19 +52,6 @@ class TokenzierMixin(object):
 class PhraseMixin(object):
     """Find high frequency ngram tokens"""
 
-    def aggragate_by_cnt(self, token_list):
-        stats = Counter()
-        for t in token_list:
-            stats[t] += 1
-        return stats
-
-    def get_entropy(self, freqs):
-        total = freqs.sum()
-        probs = freqs / float(total)
-        log_probs = np.log(probs)
-        entropy = -1. * np.dot(probs, log_probs)
-        return entropy
-
     def get_row_idx(self, data, col_idx, token_id):
         return NotImplemented
 
@@ -96,7 +84,7 @@ class PhraseMixin(object):
             n_grams = token_ids[start_idx: start_idx + n_col]
 
 
-class PhraseTokenizer(TokenzierMixin):
+class PhraseTokenizer(TokenzierMixin, PhraseMixin):
     """Phrase tokenizer"""
 
     def __init__(self, max_phrase_tokens=5, min_tf=10, token_pattern=r'^[-A-Za-z]+$'):

@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 import numpy as np
-from tokenizer.tokenizer import TokenzierMixin
+from tokenizer.tokenizer import TokenzierMixin, PhraseMixin
 
 
 class TestTokenzierMixin(TestCase):
@@ -31,6 +31,11 @@ class TestTokenzierMixin(TestCase):
         self.assertEqual(words[0], "This")
         self.assertEqual(words[6], ".")
 
-    def test_generate_phrases(self):
+    def test_sent_vectorize(self):
         pass
+
+class TestPhraseMixin(TestCase):
+
+    def setUp(self):
+        self.phrase_detector = PhraseMixin()
 
