@@ -26,8 +26,8 @@ class BaseTokenStats(object):
 
 
 class DictTokenStats(BaseTokenStats):
-    """PhraseStats with python dictionary implementation
-    """
+    """DictTokenStats with python dictionary implementation"""
+
     def __init__(self, stats_type='i'):
         self.dictionary = defaultdict()
         # index starts from 1
@@ -60,7 +60,7 @@ class DictTokenStats(BaseTokenStats):
             self.stats.append(value)
         return token_id
 
-    def increment_token(self, token, value):
+    def increment_token(self, token, value=1):
         token_id = self.dictionary[token]
         if self._token_exists(token_id):
             self.stats[token_id] += value
